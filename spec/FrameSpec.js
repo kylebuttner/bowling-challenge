@@ -78,6 +78,15 @@ describe("Frame", function(){
     });
   });
 
+  describe('#addBonus', function() {
+    it('should allow a bonus to be passed and assigned to totalScore', function() {
+      frame.firstBowl(5);
+      frame.secondBowl(5);
+      frame.addBonus(5);
+      expect(frame.totalScore).toEqual(15);
+    });
+  });
+
   describe('getter functions', function(){
     it('should get the current frame status', function(){
       frame.firstBowl(4);

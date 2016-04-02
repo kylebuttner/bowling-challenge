@@ -31,8 +31,11 @@ Frame.prototype.assignScore = function() {
     this.totalScore = this.firstBowlScore
   } else {
     this.totalScore = this.firstBowlScore + this.secondBowlScore;
-  }
+  };
+};
 
+Frame.prototype.addBonus = function(bonus) {
+  this.totalScore += bonus;
 };
 
 Frame.prototype.getStatus = function() {
