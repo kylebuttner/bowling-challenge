@@ -43,7 +43,7 @@ describe("Frame", function(){
     });
   });
 
-  describe('#setStatus', function(){
+  describe('#setFrameStatus', function(){
     it('should set a game isComplete attribute', function(){
       frame.firstBowl(4);
       expect(frame.isComplete).not.toBe(undefined);
@@ -75,6 +75,27 @@ describe("Frame", function(){
       frame.firstBowl(4);
       frame.secondBowl(4);
       expect(frame.totalScore).toEqual(8);
+    });
+  });
+
+  describe('#requiresStrikeBonus', function() {
+    it('should be false initially', function(){
+      expect(frame.requiresStrikeBonus).toBe(false);
+    });
+    it('should be true when frame is a strike', function(){
+      frame.firstBowl(10);
+      expect(frame.requiresStrikeBonus).toBe(true);
+    });
+  });
+
+  describe('#requiresSpareBonus', function() {
+    it('should be false initially', function(){
+      expect(frame.requiresSpareBonus).toBe(false);
+    });
+    it('should be true when frame is a spare', function(){
+      frame.firstBowl(5);
+      frame.secondBowl(5);
+      expect(frame.requiresSpareBonus).toBe(true);
     });
   });
 

@@ -1,9 +1,12 @@
 function Frame() {
+  this.requiresStrikeBonus = false;
+  this.requiresSpareBonus = false;
 };
 
 Frame.prototype.firstBowl = function(numberOfPins) {
   this.firstBowlScore = numberOfPins;
-  this.setStatus();
+  this.setStrikeStatus();
+  this.setFrameStatus();
   this.assignScore();
 };
 
@@ -12,17 +15,30 @@ Frame.prototype.secondBowl = function(numberOfPins) {
     throw new Error("Must call firstBowl before calling secondBowl")
   }
   this.secondBowlScore = numberOfPins;
-  this.setStatus();
+  this.setFrameStatus();
+  this.setSpareStatus();
   this.assignScore();
 };
 
-Frame.prototype.setStatus = function() {
+Frame.prototype.setFrameStatus = function() {
   if (this.firstBowlScore === 10) {
     this.isComplete = true;
   } else if (this.secondBowlScore !== undefined) {
     this.isComplete = true;
   } else {
     this.isComplete = false;
+  };
+};
+
+Frame.prototype.setStrikeStatus = function(numberOfPins) {
+  if(this.firstBowlScore === 10) {
+    this.requiresStrikeBonus = true;
+  };
+};
+
+Frame.prototype.setSpareStatus = function(numberOfPins) {
+  if(this.firstBowlScore + this.secondBowlScore === 10) {
+    this.requiresSpareBonus = true;
   };
 };
 
