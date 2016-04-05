@@ -8,7 +8,6 @@ describe("Game", function() {
   });
 
   describe('new object should have correct attributes', function(){
-
     it('should return a new game object', function(){
       expect(new Game()).not.toBe(undefined);
     });
@@ -20,20 +19,11 @@ describe("Game", function() {
   });
 
   describe('#addNewFrame', function(){
-
     it('should push a new frame to the frames array', function(){
       game.addNewFrame(frame);
       expect(game.frames.length).toEqual(2);
     });
 
-    it('should not work if 10 frames are already in the array', function(){
-      for (i=0; i<9; i++) {
-        game.addNewFrame(frame);
-      };
-      expect(function(){
-        game.addNewFrame()
-      }).toThrow();
-    });
   });
 
   describe('#getCurrentFrame', function(){
@@ -73,6 +63,41 @@ describe("Game", function() {
       game.bowl(5);
       expect(game.frames[1].firstBowlScore).toEqual(5);
     });
+
+    it('should add an 11th frame if last bowl is a strike', function(){
+      for(i=0; i<10; i++) {
+        game.bowl(10);
+      };
+      expect(game.frames.length).toEqual(11);
+    });
+
+    it('should add an 11th frame if last bowl is a spare', function(){
+      for(i=0; i<10; i++) {
+        game.bowl(5);
+        game.bowl(5);
+      };
+      game.bowl(5);
+      expect(game.frames.length).toEqual(11);
+    });
+
+    it('should stop adding new frames when 10th frame is not strike or spare', function(){
+      for(i=0; i<9; i++) {
+        game.bowl(5);
+        game.bowl(4);
+      };
+      console.log(game.frames.length);
+      console.log(game.frames[9].requiresStrikeBonus);
+      console.log(game.frames[9].requiresSpareBonus);
+      game.bowl(5);
+      game.bowl(5);
+      game.bowl(5);
+      game.bowl(5);
+      expect(function(){
+        game.bowl(5)
+      }).toThrow();
+      console.log(game.frames.length);
+    });
+
   });
 
 });
