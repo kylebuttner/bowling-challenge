@@ -78,6 +78,14 @@ describe("Frame", function(){
     });
   });
 
+  describe('#assignBonus', function(){
+    it('should allow a bonus to be added to a round', function(){
+      frame.firstBowl(10);
+      frame.assignBonus(7)
+      expect(frame.totalScore).toEqual(17);
+    });
+  });
+
   describe('#requiresStrikeBonus', function() {
     it('should be false initially', function(){
       expect(frame.requiresStrikeBonus).toBe(false);
@@ -99,12 +107,18 @@ describe("Frame", function(){
     });
   });
 
-  describe('#addBonus', function() {
+  describe('#assignBonus', function() {
     it('should allow a bonus to be passed and assigned to totalScore', function() {
       frame.firstBowl(5);
       frame.secondBowl(5);
-      frame.addBonus(5);
+      frame.assignBonus(5);
       expect(frame.totalScore).toEqual(15);
+    });
+    it('should set bonusAdded to true once called', function(){
+      frame.firstBowl(5);
+      frame.secondBowl(5);
+      frame.assignBonus(5);
+      expect(frame.bonusAdded).toBe(true);
     });
   });
 

@@ -51,8 +51,9 @@ Frame.prototype.assignScore = function() {
   };
 };
 
-Frame.prototype.addBonus = function(bonus) {
-  this.totalScore += bonus;
+Frame.prototype.assignBonus = function(score) {
+  this.totalScore += score;
+  this.bonusAdded = true;
 };
 
 Frame.prototype.getStatus = function() {
