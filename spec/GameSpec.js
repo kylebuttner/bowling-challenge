@@ -64,55 +64,78 @@ describe("Game", function() {
       expect(game.frames[1].firstBowlScore).toEqual(5);
     });
 
-    it('should add an 11th frame if last bowl is a strike', function(){
-      for(i=0; i<10; i++) {
+    it('should add a bonus frame when 10th frame is a strike', function(){
+      for(i=0;i<10;i++) {
         game.bowl(10);
       };
-      expect(game.frames.length).toEqual(11);
+      expect(game.frames[10].isBonusFrame).toBe(true);
     });
 
-    it('should add a 12th frame if the 11th frame is a strike', function(){
-      for(i=0; i<11; i++) {
-        game.bowl(10);
-      };
-      expect(game.frames.length).toEqual(12)
-    });
-
-    it('should add an 11th frame if last bowl is a spare', function(){
-      for(i=0; i<10; i++) {
+    it('should add a bonus frame when 10th frame is a spare', function(){
+      for(i=0;i<10;i++) {
         game.bowl(5);
         game.bowl(5);
       };
-      expect(game.frames.length).toEqual(11);
+      expect(game.frames[10].isBonusFrame).toBe(true);
     });
 
-    it('should only allow one bowl in 11th frame if last bowl is a spare', function(){
-      for(i=0; i<10; i++) {
-        game.bowl(5);
-        game.bowl(5);
-      };
-      game.bowl(5);
-      expect(function(){
-        game.bowl(1);
-      }).toThrow();
-    });
-
-    it('should not allow more than 11 frames if last frame is a spare', function(){
-      for(i=0; i<10; i++) {
-        game.bowl(5);
-        game.bowl(5);
-      };
-      expect(game.frames.length).toEqual(11)
-    });
-
-    it('should stop adding new frames when 10th frame is not strike or spare', function(){
-      for(i=0; i<9; i++) {
-        game.bowl(5);
+    it('should not add a bonus frame when 10th frame is not strike or spare', function() {
+      for(i=0;i<10;i++) {
+        game.bowl(4);
         game.bowl(4);
       };
-      game.bowl(5)
-      expect(game.frames.length).toEqual(10);
+      expect(game.frames[10]).toBe(undefined);
     });
+
+    // it('should add an 11th frame if last bowl is a strike', function(){
+    //   for(i=0; i<10; i++) {
+    //     game.bowl(10);
+    //   };
+    //   expect(game.frames.length).toEqual(11);
+    // });
+    //
+    // it('should add a 12th frame if the 11th frame is a strike', function(){
+    //   for(i=0; i<11; i++) {
+    //     game.bowl(10);
+    //   };
+    //   expect(game.frames.length).toEqual(12)
+    // });
+    //
+    // it('should add an 11th frame if last bowl is a spare', function(){
+    //   for(i=0; i<10; i++) {
+    //     game.bowl(5);
+    //     game.bowl(5);
+    //   };
+    //   expect(game.frames.length).toEqual(11);
+    // });
+    //
+    // it('should only allow one bowl in 11th frame if last bowl is a spare', function(){
+    //   for(i=0; i<10; i++) {
+    //     game.bowl(5);
+    //     game.bowl(5);
+    //   };
+    //   game.bowl(5);
+    //   expect(function(){
+    //     game.bowl(1);
+    //   }).toThrow();
+    // });
+    //
+    // it('should not allow more than 11 frames if last frame is a spare', function(){
+    //   for(i=0; i<10; i++) {
+    //     game.bowl(5);
+    //     game.bowl(5);
+    //   };
+    //   expect(game.frames.length).toEqual(11)
+    // });
+    //
+    // it('should stop adding new frames when 10th frame is not strike or spare', function(){
+    //   for(i=0; i<9; i++) {
+    //     game.bowl(5);
+    //     game.bowl(4);
+    //   };
+    //   game.bowl(5)
+    //   expect(game.frames.length).toEqual(10);
+    // });
 
   });
 

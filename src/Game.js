@@ -15,8 +15,13 @@ Game.prototype.bowl = function(numberOfPins) {
 };
 
 Game.prototype.addNewFrame = function() {
-  if (this.frames.length < 10 || this.frames[9].requiresStrikeBonus || this.frames[9].requiresSpareBonus) {
-    this.frames.push(new Frame());
+  if (this.getCurrentFrame() === this.frames[9]) {
+    if (this.frames[9].requiresSpareBonus === true || this.frames[9].requiresStrikeBonus === true) {
+      this.frames.push(new Frame());
+      this.frames[10].isBonusFrame = true;
+    };
+  } else if (this.frames.length < 10) {
+      this.frames.push(new Frame());
   } else {
     throw new Error("A game cannot have more than 10 frames");
   };

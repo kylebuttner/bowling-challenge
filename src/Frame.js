@@ -1,6 +1,7 @@
 function Frame() {
   this.requiresStrikeBonus = false;
   this.requiresSpareBonus = false;
+  this.isBonusFrame = false;
 };
 
 Frame.prototype.firstBowl = function(numberOfPins) {
